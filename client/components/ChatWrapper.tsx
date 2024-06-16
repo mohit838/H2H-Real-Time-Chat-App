@@ -3,7 +3,7 @@ import { useState } from "react";
 import Chat from "./Chat";
 import Conversation from "./Conversation";
 import Form from "./Form";
-import Nav from "./components/Nav";
+import Nav from "./Nav";
 
 const ChatWrapper = () => {
   const [sidebar, setSidebar] = useState<boolean>(false);

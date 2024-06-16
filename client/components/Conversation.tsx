@@ -1,8 +1,8 @@
 import { ToggleProps } from "@/types";
 import classNames from "classnames";
 import ConversationsList from "./ConversationsList";
-import Search from "./components/Search";
-import Toggle from "./components/Toggle";
+import Toggle from "./Toggle";
+import Search from "./Search";
 type PropTypes = ToggleProps;
 
 const Conversation = ({ sidebar, toggleSidebar }: PropTypes) => {
