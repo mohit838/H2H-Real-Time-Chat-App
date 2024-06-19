@@ -3,6 +3,8 @@ import express from "express";
 import helmet from "helmet";
 import { PORT } from "./config/config.js";
 import connect from "./db/db.js";
+import authRoutes from "./routes/authRoutes.js";
+import testRoutes from "./routes/testRoutes.js";
 
 // Base Configurations
 const app = express();
@@ -28,6 +30,11 @@ app.use(
 );
 
 // All Routers of this projects
+// Auth routes
+app.use("/api/v1/h2h-auth", authRoutes);
+
+// Test route
+app.use("/api/v1/h2h-test", testRoutes);
 
 // MongoDB and Server Setups
 const SERVER_PORT = PORT || 8000;
