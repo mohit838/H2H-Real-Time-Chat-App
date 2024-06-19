@@ -1,0 +1,58 @@
+{
+  "name": "h2h-real-time-chat-apps-server",
+  "version": "1.0.0",
+  "description": "This is a portfolio projects",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc -w",
+    "build": "nodemon src/index.ts",
+    "dev": "concurrently \"npm run compile\" \"npm run build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohit838/H2H-Real-Time-Chat-App"
+  },
+  "keywords": [
+    "heart to heart",
+    "H2H",
+    "Socket.io",
+    "MongoDB",
+    "NextJs",
+    "SEO",
+    "Real",
+    "Time",
+    "Chat",
+    "Typescript",
+    "Express",
+    "JS"
+  ],
+  "author": "Mohitul Islam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohit838/H2H-Real-Time-Chat-App/issues"
+  },
+  "homepage": "https://github.com/mohit838/H2H-Real-Time-Chat-App#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^20.14.2",
+    "nodemon": "^3.1.3"
+  }
+}
