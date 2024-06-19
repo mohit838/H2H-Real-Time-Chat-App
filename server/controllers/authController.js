@@ -1,4 +1,6 @@
+import bcrypt from "bcrypt";
 import UserModel from "../models/UserModel.js";
+import { genJwtToken } from "../utils/tokenAndCookie.js";
 
 class Auth {
   // Register
@@ -38,10 +40,14 @@ class Auth {
         `https://avatar.iran.liara.run/public/girl?username=${userName}` ||
         `https://i.pravatar.cc/300`;
 
+      // Hash Password
+      const salt = await bcrypt.genSalt(10);
+      const hashPassword = await bcrypt.hash(password, salt);
+
       const createNewUser = await UserModel.create({
         fullName,
         userName: userName.toLowerCase(),
-        password,
+        password: hashPassword,
         gender,
         profilePic: gender === "male" ? boyRandomAvatar : girlRandomAvatar,
       });
@@ -53,12 +59,15 @@ class Auth {
       // If user not created
       if (!checkNewUser) {
         return res.status(500).json({ error: "Problem with creating user!" });
-      }
+      } else {
+        // JWT token
+        genJwtToken(checkNewUser, res);
 
-      // Return user info
-      res.status(201).json({
-        user: checkNewUser,
-      });
+        // Return user info
+        res.status(201).json({
+          user: checkNewUser,
+        });
+      }
     } catch (error) {
       return res.status(500).json({ error: "Server internal error!" });
     }
