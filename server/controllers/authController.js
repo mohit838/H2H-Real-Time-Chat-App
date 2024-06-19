@@ -72,6 +72,48 @@ class Auth {
       return res.status(500).json({ error: "Server internal error!" });
     }
   }
+
+  // Login
+  async login(req, res) {
+    try {
+      const { userName, password } = req.body;
+
+      // Check whether the fields are empty or not
+      if ([userName, password].some((field) => field?.trim() === "")) {
+        return res.status(400).json({ error: "All fields are required." });
+      }
+
+      const existedUser = await UserModel.findOne({
+        $or: [{ userName }],
+      });
+
+      if (!existedUser) {
+        return res.status(404).json({ error: "User not exists!" });
+      }
+
+      // If there is an user
+      const isPasswordCorrect = await bcrypt.compare(
+        password,
+        existedUser?.password || ""
+      );
+
+      if (!isPasswordCorrect) {
+        return res.status(400).json({ error: "Wrong credential!" });
+      } else {
+        const user = await UserModel.findById(existedUser?._id).select(
+          "-password"
+        );
+
+        genJwtToken(user._id, res);
+        // Return user info
+        res.status(200).json({
+          user: user,
+        });
+      }
+    } catch (error) {
+      return res.status(500).json({ error: "Server internal error!" });
+    }
+  }
 }
 
 export default new Auth();
