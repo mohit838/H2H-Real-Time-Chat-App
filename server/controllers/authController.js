@@ -114,6 +114,16 @@ class Auth {
       return res.status(500).json({ error: "Server internal error!" });
     }
   }
+
+  // Logout
+  async logout(req, res) {
+    try {
+      res.cookie("jwt", "", { maxAge: 0 });
+      return res.status(200).json({ msg: "Logout successfully." });
+    } catch (error) {
+      return res.status(500).json({ error: "Server internal error!" });
+    }
+  }
 }
 
 export default new Auth();
