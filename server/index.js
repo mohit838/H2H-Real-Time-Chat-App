@@ -1,39 +1,53 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
+import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { PORT } from "./config/config.js";
 import connect from "./db/db.js";
-import authRoutes from "./routes/authRoutes.js";
-import testRoutes from "./routes/testRoutes.js";
 
-// Base Configurations
+// Import additional security-related libraries
+import mongoSanitize from "express-mongo-sanitize"; // To prevent NoSQL injection
+
 const app = express();
-app.use(express.json());
-
-// Enabling the Helmet middleware
-app.use(helmet());
 
 // Use Express built-in middleware
 app.use(express.json({ limit: "30mb" }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
+app.use(express.static("public"));
+app.use(cookieParser());
+
+// Enabling the Helmet middleware
+app.use(helmet());
 
 // Cors Policies
-// Restrictions in accessing
+const allowedOrigins = ["http://localhost:5173"];
 app.use(
   cors({
-    // If you want to allow requests from any origin, you can set origin: '*'.
-    origin: "http://localhost:5173", // If you want any restrictions then set frontend url
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
 
-// All Routers of this projects
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Max requests per windowMs
+  message: "Too many requests from this IP, please try again later.",
+});
+app.use(limiter);
+
+// Additional security middleware
+app.use(mongoSanitize()); // Prevent NoSQL injection
+
+// Import all routers of this projects
+import authRoutes from "./routes/authRoutes.js";
+import testRoutes from "./routes/testRoutes.js";
+
 // Auth routes
 app.use("/api/v1/h2h-auth", authRoutes);
-
-// Test route
 app.use("/api/v1/h2h-test", testRoutes);
 
 // MongoDB and Server Setups

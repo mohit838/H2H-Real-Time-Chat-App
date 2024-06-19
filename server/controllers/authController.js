@@ -1,4 +1,5 @@
 import UserModel from "../models/UserModel.js";
+import { ApiError } from "../utils/ApiErrors.js";
 
 class Auth {
   // Register
@@ -9,50 +10,59 @@ class Auth {
 
       // Check password fields
       if (password !== confirmPassword) {
-        return res.status(400).json({ error: "Password not match!" });
+        throw new ApiError(400, "Password not match!");
       }
 
-      // Check user is exists or not
-      const user = await UserModel.findOne({ userName });
-
-      console.log("user===>", user);
-
-      if (user) {
-        return res.status(400).json({ error: "User exists!" });
+      // Check weather the fields are empty or not
+      if (
+        [fullName, userName, password, gender].some(
+          (field) => field?.trim() === ""
+        )
+      ) {
+        throw new ApiError(400, "Required all fields.");
       }
 
-      //   Hash password
-      //   const randomAvatar = `https://i.pravatar.cc/300`; // Backup links
-      const boyRandomAvatar = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
-      const girlRandomAvatar = `https://avatar.iran.liara.run/public/girl?username=${userName}`;
+      const existedUser = await UserModel.findOne({
+        $or: [{ userName }],
+      });
 
-      const createNewUser = new UserModel({
+      if (existedUser) {
+        return res.status(409).json({ error: "User already exist!" });
+      }
+
+      // Random Profile Images
+      const boyRandomAvatar =
+        `https://avatar.iran.liara.run/public/boy?username=${userName}` ||
+        `https://i.pravatar.cc/300`;
+
+      const girlRandomAvatar =
+        `https://avatar.iran.liara.run/public/girl?username=${userName}` ||
+        `https://i.pravatar.cc/300`;
+
+      const createNewUser = await UserModel.create({
         fullName,
-        userName,
+        userName: userName.toLowerCase(),
         password,
         gender,
         profilePic: gender === "male" ? boyRandomAvatar : girlRandomAvatar,
       });
 
-      await createNewUser.save();
+      const checkNewUser = await UserModel.findById(createNewUser?._id).select(
+        "-password -refreshToken"
+      );
 
-      console.log(createNewUser);
+      if (!checkNewUser) {
+        return res.status(500).json({ error: "Problem with creating user!" });
+      }
 
       res.status(201).json({
         _id: createNewUser._id,
         fullName: createNewUser.fullName,
         userName: createNewUser.userName,
+        gender: createNewUser.gender,
         profilePic: createNewUser.profilePic,
+        refreshToken: createNewUser.refreshToken,
       });
-    } catch (error) {
-      return res.status(500).json({ error: "Server internal error!" });
-    }
-  }
-
-  // Login
-  async login(req, res) {
-    try {
-      console.log(req.body);
     } catch (error) {
       return res.status(500).json({ error: "Server internal error!" });
     }
