@@ -1,5 +1,4 @@
 import UserModel from "../models/UserModel.js";
-import { ApiError } from "../utils/ApiErrors.js";
 
 class Auth {
   // Register
@@ -10,16 +9,16 @@ class Auth {
 
       // Check password fields
       if (password !== confirmPassword) {
-        throw new ApiError(400, "Password not match!");
+        return res.status(400).json({ error: "Password not match!" });
       }
 
-      // Check weather the fields are empty or not
+      // Check whether the fields are empty or not
       if (
         [fullName, userName, password, gender].some(
           (field) => field?.trim() === ""
         )
       ) {
-        throw new ApiError(400, "Required all fields.");
+        return res.status(400).json({ error: "All fields are required." });
       }
 
       const existedUser = await UserModel.findOne({
@@ -27,7 +26,7 @@ class Auth {
       });
 
       if (existedUser) {
-        return res.status(409).json({ error: "User already exist!" });
+        return res.status(409).json({ error: "User already exists!" });
       }
 
       // Random Profile Images
@@ -48,24 +47,22 @@ class Auth {
       });
 
       const checkNewUser = await UserModel.findById(createNewUser?._id).select(
-        "-password -refreshToken"
+        "-password"
       );
 
+      // If user not created
       if (!checkNewUser) {
         return res.status(500).json({ error: "Problem with creating user!" });
       }
 
+      // Return user info
       res.status(201).json({
-        _id: createNewUser._id,
-        fullName: createNewUser.fullName,
-        userName: createNewUser.userName,
-        gender: createNewUser.gender,
-        profilePic: createNewUser.profilePic,
-        refreshToken: createNewUser.refreshToken,
+        user: checkNewUser,
       });
     } catch (error) {
       return res.status(500).json({ error: "Server internal error!" });
     }
   }
 }
+
 export default new Auth();
