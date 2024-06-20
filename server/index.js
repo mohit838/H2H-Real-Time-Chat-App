@@ -46,10 +46,12 @@ app.use(mongoSanitize()); // Prevent NoSQL injection
 import authRoutes from "./routes/authRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import testRoutes from "./routes/testRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 // Auth routes
 app.use("/api/v1/h2h-auth", authRoutes);
 app.use("/api/v1/message", messageRoutes);
+app.use("/api/v1/users", userRoutes);
 
 // Tested the routes or paths
 app.use("/api/v1/h2h-test", testRoutes);
