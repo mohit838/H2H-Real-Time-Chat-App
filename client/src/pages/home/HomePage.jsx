@@ -1,3 +1,4 @@
+import Divider from "../../components/common/Divider";
 import MessageContainer from "../../components/messageContainer/MessageContainer";
 import Sidebar from "../../components/sidebar/Sidebar";
 
@@ -8,7 +9,7 @@ const HomePage = () => {
         <Sidebar />
       </div>
 
-      <div className="divider h-full px-[2px] bg-gray-900 h2h-divider"></div>
+      <Divider />
 
       <div className="w-3/4 p-4">
         <MessageContainer />
