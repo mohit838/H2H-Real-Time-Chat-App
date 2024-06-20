@@ -44,10 +44,14 @@ app.use(mongoSanitize()); // Prevent NoSQL injection
 
 // Import all routers of this projects
 import authRoutes from "./routes/authRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import testRoutes from "./routes/testRoutes.js";
 
 // Auth routes
 app.use("/api/v1/h2h-auth", authRoutes);
+app.use("/api/v1/message", messageRoutes);
+
+// Tested the routes or paths
 app.use("/api/v1/h2h-test", testRoutes);
 
 // MongoDB and Server Setups
