@@ -19,6 +19,6 @@ const conversationSchema = new Schema(
   { timestamps: true }
 );
 
-const ConversationModel = model("conversation", conversationSchema);
+const ConversationModel = model("Conversation", conversationSchema);
 
 export default ConversationModel;

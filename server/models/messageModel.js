@@ -14,12 +14,12 @@ const messageSchema = new Schema(
     },
     message: {
       type: String,
-      require: true,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-const MessageModel = model("message", messageSchema);
+const MessageModel = model("Message", messageSchema);
 
 export default MessageModel;
