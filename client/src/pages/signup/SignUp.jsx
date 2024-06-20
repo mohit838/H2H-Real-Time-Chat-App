@@ -55,21 +55,8 @@ const SignUp = () => {
     setErrors({});
     // Send formData to the backend
     console.log(formData);
-    // Example of an API call:
-    // fetch('YOUR_BACKEND_URL/signup', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(formData)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   // Handle success or failure
-    // })
-    // .catch(error => {
-    //   console.error('Error:', error);
-    // });
+    
+
   };
 
   return (

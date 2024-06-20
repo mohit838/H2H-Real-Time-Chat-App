@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { signUp } from "../../hooks/useSignUp";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ const LogIn = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
@@ -36,23 +37,9 @@ const LogIn = () => {
       return;
     }
     setErrors({});
-    // Send formData to the backend
-    console.log(formData);
-    // Example of an API call:
-    // fetch('YOUR_BACKEND_URL/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(formData)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   // Handle success or failure
-    // })
-    // .catch(error => {
-    //   console.error('Error:', error);
-    // });
+    
+    await signUp(formData)
+   
   };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
