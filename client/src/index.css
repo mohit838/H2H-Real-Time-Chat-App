@@ -15,3 +15,7 @@ body {
   transform: rotate(-180deg);
   padding-bottom: 8px;
 }
+
+.h2h-divider {
+  margin-top: 0 !important;
+}
