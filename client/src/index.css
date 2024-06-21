@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-image: url("/images/bg-img3.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(0.79);
+}
+
+.rotate-logo {
+  display: inline-block;
+  transform: rotate(-180deg);
+  padding-bottom: 8px;
+}
+
+.h2h-divider {
+  margin-top: 0 !important;
+}
