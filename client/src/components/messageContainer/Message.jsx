@@ -1,9 +1,18 @@
+import { useEffect } from "react";
+import useConversation from "../../zustand/useConversation";
+
 const Message = () => {
-  const noChatSelected = true;
+  const { selectConversation, setSelectConversation } = useConversation();
+
+  useEffect(() => {
+    return () => {
+      setSelectConversation(null);
+    };
+  }, [setSelectConversation]);
 
   return (
     <>
-      {noChatSelected ? (
+      {!selectConversation ? (
         <NoChatSelected />
       ) : (
         <>
@@ -17,8 +26,10 @@ const Message = () => {
               </div>
             </div>
             <div className="chat-header">
-              {"Obi-Wan Kenobi"}
-              <time className="text-xs opacity-50">{"12:45"}</time>
+              {selectConversation?.fullName}
+              <time className="text-xs opacity-50 pl-2">
+                {selectConversation?.createdAt}
+              </time>
             </div>
             <div className="chat-bubble">{"You were the Chosen One!"}</div>
             <div className="chat-footer opacity-50">{"Delivered"}</div>
@@ -34,7 +45,7 @@ const Message = () => {
             </div>
             <div className="chat-header">
               {"Anakin"}
-              <time className="text-xs opacity-50">{"12:46"}</time>
+              <time className="text-xs opacity-50 pl-2">{"12:46"}</time>
             </div>
             <div className="chat-bubble">{"I hate you!"}</div>
             <div className="chat-footer opacity-50">{"Seen at 12:46"}</div>
