@@ -1,8 +1,11 @@
 import { useEffect } from "react";
+import { useGetMessages } from "../../hooks/useGetMessages";
 import useConversation from "../../zustand/useConversation";
+import LoadingSpin from "../common/LoadingSpin";
 
 const Message = () => {
   const { selectConversation, setSelectConversation } = useConversation();
+  const { loading, messages } = useGetMessages();
 
   useEffect(() => {
     return () => {
@@ -10,47 +13,50 @@ const Message = () => {
     };
   }, [setSelectConversation]);
 
+  if (!selectConversation) {
+    return <NoChatSelected />;
+  }
+
   return (
     <>
-      {!selectConversation ? (
-        <NoChatSelected />
+      {loading ? (
+        <LoadingSpin />
       ) : (
-        <>
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS chat bubble component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+        <div className="flex flex-col">
+          {messages.map((msg) => (
+            <div
+              key={msg._id}
+              className={`chat ${
+                msg.senderId === selectConversation._id
+                  ? "chat-start"
+                  : "chat-end"
+              }`}
+            >
+              <div className="chat-image avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="User avatar"
+                    src={
+                      msg.senderId === selectConversation?._id
+                        ? selectConversation?.profilePic
+                        : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                    }
+                  />
+                </div>
               </div>
-            </div>
-            <div className="chat-header">
-              {selectConversation?.fullName}
-              <time className="text-xs opacity-50 pl-2">
-                {selectConversation?.createdAt}
-              </time>
-            </div>
-            <div className="chat-bubble">{"You were the Chosen One!"}</div>
-            <div className="chat-footer opacity-50">{"Delivered"}</div>
-          </div>
-          <div className="chat chat-end">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS chat bubble component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+              <div className="chat-header">
+                {msg.senderId === selectConversation._id
+                  ? selectConversation.fullName
+                  : "You"}
+                <time className="text-xs opacity-50 pl-2">
+                  {new Date(msg.createdAt).toLocaleTimeString()}
+                </time>
               </div>
+              <div className="chat-bubble">{msg.message}</div>
+              <div className="chat-footer opacity-50">{"Delivered"}</div>
             </div>
-            <div className="chat-header">
-              {"Anakin"}
-              <time className="text-xs opacity-50 pl-2">{"12:46"}</time>
-            </div>
-            <div className="chat-bubble">{"I hate you!"}</div>
-            <div className="chat-footer opacity-50">{"Seen at 12:46"}</div>
-          </div>
-        </>
+          ))}
+        </div>
       )}
     </>
   );
