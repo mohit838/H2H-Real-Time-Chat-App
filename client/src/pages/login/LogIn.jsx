@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { signUp } from "../../hooks/useSignUp";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +28,7 @@ const LogIn = () => {
     return newErrors;
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
@@ -37,9 +36,7 @@ const LogIn = () => {
       return;
     }
     setErrors({});
-    
-    await signUp(formData)
-   
+    //send to backend here
   };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">

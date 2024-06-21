@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useSignUp from "../../hooks/useSignUp";
 
 const SignUp = () => {
+  const { loading, signUp } = useSignUp();
   const [formData, setFormData] = useState({
-    fullname: "",
-    username: "",
+    fullName: "",
+    userName: "",
     gender: "",
     password: "",
     confirmPassword: "",
@@ -27,8 +29,8 @@ const SignUp = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.fullname) newErrors.fullname = "Fullname is required";
-    if (!formData.username) newErrors.username = "Username is required";
+    if (!formData.fullName) newErrors.fullName = "Fullname is required";
+    if (!formData.userName) newErrors.userName = "Username is required";
     if (!formData.gender) newErrors.gender = "Gender is required";
     if (!formData.password) newErrors.password = "Password is required";
     if (!formData.confirmPassword)
@@ -44,19 +46,17 @@ const SignUp = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
     setErrors({});
-    // Send formData to the backend
-    console.log(formData);
-    
-
+    await signUp(formData);
   };
 
   return (
@@ -74,15 +74,15 @@ const SignUp = () => {
             </label>
             <input
               type="text"
-              name="fullname"
-              placeholder="Enter fullname"
+              name="fullName"
+              placeholder="Enter fullName"
               className="w-full input input-bordered h-10"
               autoComplete="off"
-              value={formData.fullname}
+              value={formData.fullName}
               onChange={handleChange}
             />
-            {errors.fullname && (
-              <p className="text-red-500">{errors.fullname}</p>
+            {errors.fullName && (
+              <p className="text-red-500">{errors.fullName}</p>
             )}
           </div>
 
@@ -92,15 +92,15 @@ const SignUp = () => {
             </label>
             <input
               type="text"
-              name="username"
-              placeholder="Enter username"
+              name="userName"
+              placeholder="Enter userName"
               className="w-full input input-bordered h-10"
               autoComplete="off"
-              value={formData.username}
+              value={formData.userName}
               onChange={handleChange}
             />
-            {errors.username && (
-              <p className="text-red-500">{errors.username}</p>
+            {errors.userName && (
+              <p className="text-red-500">{errors.userName}</p>
             )}
           </div>
 
@@ -128,16 +128,6 @@ const SignUp = () => {
                   onChange={handleChange}
                 />
                 <span className="ml-2">Female</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="other"
-                  checked={formData.gender === "other"}
-                  onChange={handleChange}
-                />
-                <span className="ml-2">Other</span>
               </label>
             </div>
             {errors.gender && <p className="text-red-500">{errors.gender}</p>}
@@ -174,8 +164,8 @@ const SignUp = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
             />
-            {errors.password && (
-              <p className="text-red-500">{errors.password}</p>
+            {errors.confirmPassword && (
+              <p className="text-red-500">{errors.confirmPassword}</p>
             )}
           </div>
 
@@ -184,7 +174,11 @@ const SignUp = () => {
           </div>
 
           <div>
-            <button type="submit" className="btn btn-block btn-sm mt-5">
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn btn-block btn-sm mt-5"
+            >
               Sign Up
             </button>
           </div>
