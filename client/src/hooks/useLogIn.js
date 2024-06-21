@@ -2,56 +2,34 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext";
 
-const useSignUp = () => {
+const useLogIn = () => {
   const { setAuthUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
 
   // Double check the error this is not necessary just for findings ways
-  const handleInputErrors = ({
-    fullName,
-    userName,
-    password,
-    confirmPassword,
-    gender,
-  }) => {
-    if (password !== confirmPassword) {
-      toast.error("Password didn't match!");
-      return false;
-    }
-    if (!fullName || !userName || !gender || !password || !confirmPassword) {
+  const handleInputErrors = ({ userName, password }) => {
+    if (!userName || !password) {
       toast.error("Fill all fields!");
       return false;
     }
     return true;
   };
 
-  const signUp = async ({
-    fullName,
-    userName,
-    password,
-    confirmPassword,
-    gender,
-  }) => {
+  const logIn = async ({ userName, password }) => {
     const success = handleInputErrors({
-      fullName,
       userName,
       password,
-      confirmPassword,
-      gender,
     });
     if (!success) return;
 
     setLoading(true);
     try {
-      const res = await fetch("/api/v1/h2h-auth/signup", {
+      const res = await fetch("/api/v1/h2h-auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fullName,
           userName,
           password,
-          confirmPassword,
-          gender,
         }),
       });
 
@@ -63,10 +41,10 @@ const useSignUp = () => {
       setAuthUser(data);
 
       if (res.ok) {
-        toast.success("Signup successfully!");
+        toast.success("LogIn successfully!");
       } else {
         const errorData = await res.json();
-        toast.error(errorData.message || "Signup failed!");
+        toast.error(errorData.message || "LogIn failed!");
       }
     } catch (error) {
       toast.error(error?.message || "Error!!");
@@ -75,7 +53,7 @@ const useSignUp = () => {
     }
   };
 
-  return { signUp, loading };
+  return { logIn, loading };
 };
 
-export default useSignUp;
+export default useLogIn;
