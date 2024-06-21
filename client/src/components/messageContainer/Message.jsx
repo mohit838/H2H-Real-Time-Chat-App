@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useAuthContext } from "../../context/AuthContext";
 import { useGetMessages } from "../../hooks/useGetMessages";
 import useConversation from "../../zustand/useConversation";
 import LoadingSpin from "../common/LoadingSpin";
@@ -6,6 +7,7 @@ import LoadingSpin from "../common/LoadingSpin";
 const Message = () => {
   const { selectConversation, setSelectConversation } = useConversation();
   const { loading, messages } = useGetMessages();
+  const { authUser } = useAuthContext();
 
   useEffect(() => {
     return () => {
@@ -38,8 +40,8 @@ const Message = () => {
                     alt="User avatar"
                     src={
                       msg.senderId === selectConversation?._id
-                        ? selectConversation?.profilePic
-                        : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                        ? authUser?.user?.profilePic
+                        : selectConversation?.profilePic
                     }
                   />
                 </div>
