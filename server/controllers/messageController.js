@@ -47,10 +47,6 @@ class Messenger {
       const { id: userToChatId } = req.params;
       const senderId = req.userId._id;
 
-      console.log("userToChatId", userToChatId);
-
-      console.log(senderId);
-
       const conversation = await ConversationModel.findOne({
         participants: {
           $all: [senderId, userToChatId],

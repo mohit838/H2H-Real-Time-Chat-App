@@ -1,10 +1,14 @@
 import PropTypes from "prop-types";
+import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
 
 const ConversationPeople = ({ item }) => {
   const { selectConversation, setSelectConversation } = useConversation();
-
   const isSelected = selectConversation?._id === item?._id;
+
+  const { onlineUser } = useSocketContext();
+
+  const isOnline = onlineUser.includes(item?._id);
 
   return (
     <>
@@ -16,7 +20,7 @@ const ConversationPeople = ({ item }) => {
           setSelectConversation(item);
         }}
       >
-        <div className="avatar online">
+        <div className={`avatar ${isOnline ? "online" : "offline"}`}>
           <div className="w-12 rounded-full">
             <img src={item?.profilePic} alt={`${item?.userName}-avatar`} />
           </div>

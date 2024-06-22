@@ -5,11 +5,12 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { PORT } from "./config/config.js";
 import connect from "./db/db.js";
+import { app, server } from "./socket/socket.js";
 
 // Import additional security-related libraries
 import mongoSanitize from "express-mongo-sanitize"; // To prevent NoSQL injection
 
-const app = express();
+// const app = express();
 
 // Use Express built-in middleware
 app.use(express.json({ limit: "30mb" }));
@@ -61,7 +62,7 @@ const SERVER_PORT = PORT || 8000;
 
 // Connect DB first then server started
 connect().then(() => {
-  app.listen(SERVER_PORT, () =>
+  server.listen(SERVER_PORT, () =>
     console.log(`H2H Server Running On Port: ${SERVER_PORT}`)
   );
 });
