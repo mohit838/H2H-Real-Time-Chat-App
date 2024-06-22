@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { useGetMessages } from "../../hooks/useGetMessages";
 import useConversation from "../../zustand/useConversation";
@@ -8,12 +8,21 @@ const Message = () => {
   const { selectConversation, setSelectConversation } = useConversation();
   const { loading, messages } = useGetMessages();
   const { authUser } = useAuthContext();
+  const lastMsgRef = useRef();
 
   useEffect(() => {
     return () => {
       setSelectConversation(null);
     };
   }, [setSelectConversation]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      lastMsgRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+
+    return () => {};
+  }, [messages]);
 
   if (!selectConversation) {
     return <NoChatSelected />;
@@ -28,6 +37,7 @@ const Message = () => {
           {messages.map((msg) => (
             <div
               key={msg._id}
+              ref={lastMsgRef}
               className={`chat ${
                 msg.senderId === selectConversation._id
                   ? "chat-start"
