@@ -1,14 +1,18 @@
 import { useEffect, useRef } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { useGetMessages } from "../../hooks/useGetMessages";
+import useListenMessages from "../../hooks/useListenMessages";
 import useConversation from "../../zustand/useConversation";
 import LoadingSpin from "../common/LoadingSpin";
 
 const MessageContent = () => {
   const { selectConversation, setSelectConversation } = useConversation();
   const { loading, messages } = useGetMessages();
+  useListenMessages();
   const { authUser } = useAuthContext();
   const lastMsgRef = useRef();
+
+  const shakeCls = messages?.shouldShake ? "shake" : "";
 
   useEffect(() => {
     return () => {
@@ -35,7 +39,7 @@ const MessageContent = () => {
           <LoadingSpin />
         ) : (
           <div className="flex flex-col">
-            {messages.map((msg) => (
+            {messages?.map((msg) => (
               <div
                 key={msg._id}
                 ref={lastMsgRef}
@@ -50,9 +54,9 @@ const MessageContent = () => {
                     <img
                       alt="User avatar"
                       src={
-                        msg.senderId === selectConversation?._id
-                          ? selectConversation?.profilePic
-                          : authUser?.user?.profilePic
+                        msg.senderId === selectConversation._id
+                          ? selectConversation.profilePic
+                          : authUser?.user.profilePic
                       }
                     />
                   </div>
@@ -65,7 +69,7 @@ const MessageContent = () => {
                     {new Date(msg.createdAt).toLocaleTimeString()}
                   </time>
                 </div>
-                <div className="chat-bubble">{msg.message}</div>
+                <div className={`chat-bubble ${shakeCls}`}>{msg.message}</div>
                 <div className="chat-footer opacity-50">{"Delivered"}</div>
               </div>
             ))}
