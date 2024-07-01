@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import LoadingSpin from "../../components/common/LoadingSpin";
+import useLogIn from "../../hooks/useLogIn";
 
 const LogIn = () => {
+  const { loading, logIn } = useLogIn();
+
   const [formData, setFormData] = useState({
-    username: "",
+    userName: "",
     password: "",
   });
 
@@ -23,7 +27,7 @@ const LogIn = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.username) newErrors.username = "Username is required";
+    if (!formData.userName) newErrors.userName = "Username is required";
     if (!formData.password) newErrors.password = "Password is required";
     return newErrors;
   };
@@ -36,7 +40,7 @@ const LogIn = () => {
       return;
     }
     setErrors({});
-    //send to backend here
+    await logIn(formData);
   };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -53,15 +57,15 @@ const LogIn = () => {
             </label>
             <input
               type="text"
-              name="username"
+              name="userName"
               placeholder="Enter username"
               className="w-full input input-bordered h-10"
               autoComplete="off"
-              value={formData.username}
+              value={formData.userName}
               onChange={handleChange}
             />
-            {errors.username && (
-              <p className="text-red-500">{errors.username}</p>
+            {errors.userName && (
+              <p className="text-red-500">{errors.userName}</p>
             )}
           </div>
 
@@ -88,8 +92,12 @@ const LogIn = () => {
           </div>
 
           <div>
-            <button type="submit" className="btn btn-block btn-sm mt-5">
-              LogIn
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn btn-block btn-sm mt-5"
+            >
+              {loading ? <LoadingSpin /> : "LogIn"}
             </button>
           </div>
         </form>

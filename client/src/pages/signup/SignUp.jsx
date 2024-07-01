@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import LoadingSpin from "../../components/common/LoadingSpin";
 import useSignUp from "../../hooks/useSignUp";
 
 const SignUp = () => {
@@ -179,7 +180,7 @@ const SignUp = () => {
               disabled={loading}
               className="btn btn-block btn-sm mt-5"
             >
-              Sign Up
+              {loading ? <LoadingSpin /> : "Sign Up"}
             </button>
           </div>
         </form>

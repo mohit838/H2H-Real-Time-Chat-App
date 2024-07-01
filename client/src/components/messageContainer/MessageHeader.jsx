@@ -1,5 +1,17 @@
-const MessageHeader = () => {
-  return <div className="h-12 text-xl font-bold">{"TO: Mr. Jane Doe"}</div>;
+import PropTypes from "prop-types";
+
+const MessageHeader = ({ selectConversation }) => {
+  return (
+    <div className="h-12 text-xl font-bold">
+      {selectConversation ? selectConversation?.fullName : "No Chat Selected!!"}
+    </div>
+  );
 };
 
 export default MessageHeader;
+
+MessageHeader.propTypes = {
+  selectConversation: PropTypes.shape({
+    fullName: PropTypes.string,
+  }).isRequired,
+};

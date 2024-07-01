@@ -1,5 +1,12 @@
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import {
+  Navigate,
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import NotFound from "../components/NotFound";
+import { useAuthContext } from "../context/AuthContext";
 import HomePage from "../pages/home/HomePage";
 import LogIn from "../pages/login/LogIn";
 import SignUp from "../pages/signup/SignUp";
@@ -15,6 +22,26 @@ const Layout = () => {
   );
 };
 
+const ProtectedRoute = ({ children }) => {
+  const { authUser } = useAuthContext();
+
+  if (!authUser) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
+};
+
+const PublicRoute = ({ children }) => {
+  const { authUser } = useAuthContext();
+
+  if (authUser) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,7 +49,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: (
+          <>
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          </>
+        ),
       },
     ],
   },
@@ -30,7 +63,9 @@ const router = createBrowserRouter([
     path: "/signup",
     element: (
       <>
-        <SignUp />
+        <PublicRoute>
+          <SignUp />
+        </PublicRoute>
       </>
     ),
   },
@@ -38,7 +73,9 @@ const router = createBrowserRouter([
     path: "/login",
     element: (
       <>
-        <LogIn />
+        <PublicRoute>
+          <LogIn />
+        </PublicRoute>
       </>
     ),
   },
@@ -61,3 +98,11 @@ const Routing = () => {
 };
 
 export default Routing;
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+PublicRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};

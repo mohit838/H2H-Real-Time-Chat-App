@@ -1,5 +1,6 @@
 import ConversationModel from "../models/conversationModel.js";
 import MessageModel from "../models/messageModel.js";
+import { getReceiverSocketId } from "../socket/socket.js";
 
 class Messenger {
   // chatting
@@ -31,9 +32,14 @@ class Messenger {
         conversations.messages.push(newMessage._id);
       }
 
-      // TODO:: Socket Io added later
-
       await Promise.all([conversations.save(), newMessage.save()]);
+
+      // Socket Io added later
+      const receiverSocketId = getReceiverSocketId(receiverId);
+
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit("newMessage", newMessage);
+      }
 
       return res.status(201).json({ msg: newMessage });
     } catch (error) {
@@ -46,10 +52,6 @@ class Messenger {
     try {
       const { id: userToChatId } = req.params;
       const senderId = req.userId._id;
-
-      console.log("userToChatId", userToChatId);
-
-      console.log(senderId);
 
       const conversation = await ConversationModel.findOne({
         participants: {
