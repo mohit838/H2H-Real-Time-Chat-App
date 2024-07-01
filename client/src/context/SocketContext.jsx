@@ -17,23 +17,29 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const socket = io.connect("http://localhost:7000", {
-        query: authUser._id,
+      const newSocket = io.connect("http://localhost:9000", {
+        query: { userId: authUser.user._id },
       });
-      setSocket(socket);
 
-      socket.on("getOnlineUsers", (users) => {
+      setSocket(newSocket);
+
+      // newSocket.on("connect", () => {
+      //   console.log("Connected to server");
+      // });
+
+      newSocket.on("getOnlineUsers", (users) => {
         setOnlineUser(users);
       });
 
-      return () => socket.close();
+      return () => newSocket.close();
     } else {
       if (socket) {
         socket.close();
         setSocket(null);
       }
     }
-  }, [authUser, socket]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUser]);
 
   return (
     <SocketContext.Provider value={{ socket, onlineUser }}>
