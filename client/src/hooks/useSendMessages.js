@@ -33,7 +33,7 @@ export const useSendMessages = () => {
       const data = await res.json();
 
       if (data.error) toast.error("Data not fetched!");
-      setMessages([...messages, data]);
+      setMessages([...messages, data?.msg]);
     } catch (error) {
       toast.error(error.message);
     } finally {
