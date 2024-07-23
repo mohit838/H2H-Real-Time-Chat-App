@@ -1,5 +1,9 @@
 const LoadingSpin = () => {
-  return <span className="loading loading-spinner"></span>;
+  return (
+    <div className="flex items-center justify-center">
+      <span className="loading loading-spinner"></span>
+    </div>
+  );
 };
 
 export default LoadingSpin;
