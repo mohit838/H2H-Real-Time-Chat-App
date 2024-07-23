@@ -8,6 +8,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   filter: brightness(0.79);
+  /* background-color:linear-gradient(to right, #fec76f 0%, #fec76f 100%); */
+  /* background-color: #eeeeee; */
 }
 
 .rotate-logo {
