@@ -12,8 +12,8 @@ const MessageContainer = () => {
       <MessageHeader selectConversation={selectConversation} />
       <Divider />
       <MessageContent />
-      <Divider />
-      <MessageInputField />
+      {!!selectConversation && <Divider />}
+      {!!selectConversation && <MessageInputField />}
     </div>
   );
 };

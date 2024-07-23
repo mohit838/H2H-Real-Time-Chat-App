@@ -85,7 +85,7 @@ export default MessageContent;
 const NoChatSelected = () => {
   return (
     <div className="flex items-center justify-center">
-      {"No Chat Selected!!"}
+      {"No Chat Selected!! Start Chatting Now!?"}
     </div>
   );
 };
