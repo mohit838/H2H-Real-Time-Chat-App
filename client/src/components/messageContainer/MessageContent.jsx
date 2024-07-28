@@ -8,12 +8,10 @@ import LoadingSpin from "../common/LoadingSpin";
 const MessageContent = () => {
   const { selectConversation, setSelectConversation } = useConversation();
   const { loading, messages } = useGetMessages();
-  useListenMessages();
   const { authUser } = useAuthContext();
   const lastMsgRef = useRef();
+  useListenMessages();
 
-  console.log(messages?.shouldShake);
-  
   // 2024-06-21T18:02:49.436Z
 
   const shakeCls = messages?.shouldShake ? "shake" : "";
@@ -70,7 +68,15 @@ const MessageContent = () => {
                     ? selectConversation.fullName
                     : "You"}
                   <time className="text-xs opacity-50 pl-2">
-                    {new Date(msg.createdAt).toLocaleTimeString()}
+                    {new Date(msg.createdAt).toLocaleString(undefined, {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      // second: "2-digit",
+                      hour12: true,
+                    })}
                   </time>
                 </div>
                 <div className={`chat-bubble ${shakeCls}`}>{msg.message}</div>
