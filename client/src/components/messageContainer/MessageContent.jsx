@@ -12,6 +12,10 @@ const MessageContent = () => {
   const { authUser } = useAuthContext();
   const lastMsgRef = useRef();
 
+  console.log(messages?.shouldShake);
+  
+  // 2024-06-21T18:02:49.436Z
+
   const shakeCls = messages?.shouldShake ? "shake" : "";
 
   useEffect(() => {
