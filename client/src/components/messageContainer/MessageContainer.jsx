@@ -8,7 +8,7 @@ const MessageContainer = () => {
   const { selectConversation } = useConversation();
 
   return (
-    <div className="md:min-w-[450px] flex flex-col">
+    <div className="min-w-3/4 flex flex-col">
       <MessageHeader selectConversation={selectConversation} />
       <Divider />
       <MessageContent />

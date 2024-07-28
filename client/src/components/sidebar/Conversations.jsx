@@ -6,7 +6,7 @@ const Conversations = () => {
   const { loading, conversations } = useGetConversations();
 
   return (
-    <div className="py-2 flex flex-col max-h-[40rem] overflow-auto">
+    <div className="py-2 flex flex-col max-h-screen overflow-auto">
       {loading ? (
         <>
           <LoadingSpin />

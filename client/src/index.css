@@ -2,15 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* body {
   background-image: url("/images/bg-img3.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   filter: brightness(0.79);
-  /* background-color:linear-gradient(to right, #fec76f 0%, #fec76f 100%); */
-  /* background-color: #eeeeee; */
-}
+  background-color:linear-gradient(to right, #fec76f 0%, #fec76f 100%);
+  background-color: #ddd;
+} */
 
 .rotate-logo {
   display: inline-block;
