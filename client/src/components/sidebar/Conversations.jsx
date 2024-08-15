@@ -12,6 +12,7 @@ const Conversations = () => {
           <LoadingSpin />
         </>
       ) : (
+        conversations.length > 0 &&
         conversations?.map((item) => (
           <>
             <ConversationPeople key={item._id} item={item} />
