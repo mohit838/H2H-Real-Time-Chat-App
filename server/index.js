@@ -55,8 +55,12 @@ app.use("/api/v1/h2h-test", testRoutes);
 const SERVER_PORT = PORT || 8000;
 
 // Connect DB first then server started
-connect().then(() => {
-  server.listen(SERVER_PORT, () =>
-    console.log(`H2H Server Running On Port: ${SERVER_PORT}`)
-  );
-});
+connect()
+  .then(() => {
+    server.listen(SERVER_PORT, () => {
+      console.log(`H2H Server Running On Port: ${SERVER_PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Error starting the server:", error);
+  });
