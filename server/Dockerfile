@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM alpine:3.19
+FROM node:22-alpine3.19
 
 # Set the working directory
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the port the app runs on
-EXPOSE 5000
+EXPOSE 7000
 
 # Command to run the application
-CMD ["npm", "start"]
+CMD ["npm", "run", "server"]

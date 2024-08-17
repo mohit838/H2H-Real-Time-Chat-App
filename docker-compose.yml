@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   server:
@@ -6,11 +6,16 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "7000:7000"
+    container_name: h2h-server
+    networks:
+      - h2h-app
     depends_on:
       - mongo
+    # env_file:
+    #   - ./.env
     environment:
-      - MONGO_URI=mongodb://mongo:27017/h2h
+      - MONGO_URL=mongodb://mongo:27017/h2h
 
   client:
     build:
@@ -18,15 +23,31 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    container_name: h2h-client
+    networks:
+      - h2h-app
     depends_on:
       - server
 
   mongo:
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - "9000:27017"
+    container_name: h2h-db
+    networks:
+      - h2h-app
     volumes:
       - mongo-data:/data/db
 
+networks:
+  h2h-app:
+
 volumes:
   mongo-data:
+# Note:
+# docker-compose up -d
+# docker logs container-name
+# Verify Docker ENV
+# docker exec -it h2h-server /bin/bash
+# printenv | grep PORT
+
