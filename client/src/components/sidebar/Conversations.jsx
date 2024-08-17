@@ -6,12 +6,13 @@ const Conversations = () => {
   const { loading, conversations } = useGetConversations();
 
   return (
-    <div className="py-2 flex flex-col max-h-[40rem] overflow-auto">
+    <div className="py-2 flex flex-col max-h-screen overflow-auto">
       {loading ? (
         <>
           <LoadingSpin />
         </>
       ) : (
+        conversations.length > 0 &&
         conversations?.map((item) => (
           <>
             <ConversationPeople key={item._id} item={item} />

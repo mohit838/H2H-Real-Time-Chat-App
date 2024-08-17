@@ -4,12 +4,14 @@ import App from "./App.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { SocketContextProvider } from "./context/SocketContext.jsx";
 import "./index.css";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthContextProvider>
       <SocketContextProvider>
         <App />
+        <Toaster />
       </SocketContextProvider>
     </AuthContextProvider>
   </React.StrictMode>

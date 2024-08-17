@@ -8,7 +8,7 @@ const LogoutBtn = () => {
   };
 
   return (
-    <div className="mt-5 cursor-pointer" onClick={handleClickLogOut}>
+    <div className="mt-5 cursor-pointer flex items-center gap-2" onClick={handleClickLogOut}>
       {!loading && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -25,6 +25,7 @@ const LogoutBtn = () => {
           />
         </svg>
       )}
+      <span>{"Logout"}</span>
     </div>
   );
 };
