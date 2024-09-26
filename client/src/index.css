@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 /* body {
   background-image: url("/images/bg-img3.webp");
   background-position: center;
@@ -21,3 +23,17 @@
 .h2h-divider {
   margin-top: 0 !important;
 }
+
+/*
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+</style>
+
+.nunito-<uniquifier> {
+  font-family: "Nunito", system-ui;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+<style>
+ */
