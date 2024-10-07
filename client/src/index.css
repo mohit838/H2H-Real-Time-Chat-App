@@ -7,13 +7,7 @@
 
 body {
   font-family: "Nunito", system-ui;
-  /* background-image: url("/images/bg-img3.webp"); */
-  /* background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
-  /* filter: brightness(0.79); */
-  /* background-color:linear-gradient(to right, #fec76f 0%, #fec76f 100%); */
-  /* background-color: #ddd; */
+  background-color: #ddd;
 }
 
 .rotate-logo {
@@ -25,12 +19,3 @@ body {
 .h2h-divider {
   margin-top: 0 !important;
 }
-
-/*
-.nunito-<uniquifier> {
-  font-family: "Nunito", system-ui;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
- */
