@@ -61,8 +61,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-md bg-black/90 bg-clip-padding">
+    <div className="container w-full h-screen flex items-center justify-center mx-auto">
+      <div className="p-6 rounded-lg shadow-md bg-black/90 bg-clip-padding w-1/4">
         <h1 className="text-3xl font-semibold text-center">
           H<span className="rotate-logo">2</span>H - SignUp
         </h1>

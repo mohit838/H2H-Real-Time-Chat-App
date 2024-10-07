@@ -4,14 +4,14 @@ import Conversations from "./Conversations";
 
 const Sidebar = () => {
   return (
-    <div className="flex flex-col min-w-1/4">
-      {/* Logo */}
-      <SiteLogo />
-
-      {/* <SearchBar /> */}
-      {/* <Divider /> */}
-      <Conversations />
-      <LogoutBtn />
+    <div className="flex flex-col items-start justify-between border-r-2 border-[#3c3c3c] h-full">
+      <div className="w-full">
+        <SiteLogo />
+        <Conversations />
+      </div>
+      <div className="w-full p-4 shadow-2xl border-2 rounded-lg border-black/10">
+        <LogoutBtn />
+      </div>
     </div>
   );
 };

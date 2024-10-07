@@ -11,13 +11,10 @@ import HomePage from "../pages/home/HomePage";
 import LogIn from "../pages/login/LogIn";
 import SignUp from "../pages/signup/SignUp";
 
-// @Children or Child Component for "<Outlet/>"in React-Router-Dom Latest version
 const Layout = () => {
   return (
     <>
-      {/* <Navbar /> */}
       <Outlet />
-      {/* <Footer /> */}
     </>
   );
 };
