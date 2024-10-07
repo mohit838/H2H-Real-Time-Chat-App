@@ -7,17 +7,23 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies (only production dependencies)
+RUN npm ci --only=production
 
 # Copy the rest of the application code
 COPY . .
 
+# Install all dependencies including devDependencies temporarily
+RUN npm install
+
 # Build the Vite project
 RUN npm run build
 
-# Install serve to serve the build files
+# Install `serve` to serve the build files
 RUN npm install -g serve
+
+# Remove devDependencies after build to reduce image size
+RUN npm prune --production
 
 # Expose the port the app runs on
 EXPOSE 3000

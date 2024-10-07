@@ -22,7 +22,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "3003:3003"
+      - "3000:3000"
     container_name: h2h-client
     networks:
       - h2h-app
@@ -41,6 +41,7 @@ services:
 
 networks:
   h2h-app:
+    driver: bridge
 
 volumes:
   mongo-data:
