@@ -22,7 +22,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3003:3003"
     container_name: h2h-client
     networks:
       - h2h-app

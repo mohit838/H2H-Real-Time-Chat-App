@@ -8,12 +8,18 @@ const MessageContainer = () => {
   const { selectConversation } = useConversation();
 
   return (
-    <div className="min-w-3/4 flex flex-col">
-      <MessageHeader selectConversation={selectConversation} />
-      <Divider />
-      <MessageContent />
-      {!!selectConversation && <Divider />}
-      {!!selectConversation && <MessageInputField />}
+    <div className="h-full">
+      <div className="">
+        <MessageHeader selectConversation={selectConversation} />
+        <Divider />
+        <div className="overflow-y-auto overflow-hidden h-[38rem] xl:h-[47rem]">
+          <MessageContent />
+        </div>
+      </div>
+      <div className="">
+        {!!selectConversation && <Divider />}
+        {!!selectConversation && <MessageInputField />}
+      </div>
     </div>
   );
 };

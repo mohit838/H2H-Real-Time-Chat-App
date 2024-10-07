@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const MessageHeader = ({ selectConversation }) => {
   return (
-    <div className="h-12 text-xl font-bold">
+    <div className="text-4xl font-bold">
       {selectConversation?.fullName ?? "No Chat Selected!!"}
     </div>
   );

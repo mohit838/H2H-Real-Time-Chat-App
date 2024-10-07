@@ -3,15 +3,12 @@ import Sidebar from "../../components/sidebar/Sidebar";
 
 const HomePage = () => {
   return (
-    <div className="h-full w-full flex max-md:flex-col">
-      {/* <div className="bg-black/90 h-full w-full p-4 flex"></div> */}
-      <div className="max-md:w-full w-1/4 p-4">
+    <div className="grid grid-cols-12 gap-4 p-2 h-screen">
+      <div className="col-span-full lg:col-span-3 xl:col-span-2">
         <Sidebar />
       </div>
 
-      {/* <Divider /> */}
-
-      <div className="max-md:w-full w-3/4 p-4">
+      <div className="col-span-full lg:col-span-9 xl:col-span-10 h-full">
         <MessageContainer />
       </div>
     </div>
