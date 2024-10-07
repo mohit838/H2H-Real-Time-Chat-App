@@ -12,7 +12,7 @@ const MessageContainer = () => {
       <div className="">
         <MessageHeader selectConversation={selectConversation} />
         <Divider />
-        <div className="overflow-y-auto overflow-hidden h-[47rem]">
+        <div className="overflow-y-auto overflow-hidden h-[38rem] xl:h-[47rem]">
           <MessageContent />
         </div>
       </div>

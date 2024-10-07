@@ -32,7 +32,7 @@ const ConversationPeople = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className="divider my-0 py-0 h1" />
+      <div className="divider my-0 py-0" />
     </>
   );
 };
