@@ -8,4 +8,6 @@ H2H real time chat app
 
 ## Clear Cached Images
 
+    docker-compose down --volumes --remove-orphans
+
     docker-compose down --rmi all --volumes --remove-orphans

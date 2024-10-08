@@ -52,7 +52,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/h2h-test", testRoutes);
 
 // MongoDB and Server Setup
-const SERVER_PORT = PORT || 8000;
+const SERVER_PORT = PORT || 7001;
 
 // Connect DB first then server started
 connect()

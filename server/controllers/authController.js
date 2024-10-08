@@ -52,21 +52,19 @@ class Auth {
         profilePic: gender === "male" ? boyRandomAvatar : girlRandomAvatar,
       });
 
-      const checkNewUser = await UserModel.findById(createNewUser?._id).select(
+      const user = await UserModel.findById(createNewUser?._id).select(
         "-password"
       );
 
       // If user not created
-      if (!checkNewUser) {
+      if (!user) {
         return res.status(500).json({ error: "Problem with creating user!" });
       } else {
         // JWT token
-        genJwtToken(checkNewUser, res);
+        genJwtToken(user, res);
 
         // Return user info
-        res.status(201).json({
-          user: checkNewUser,
-        });
+        res.status(201).json({ user });
       }
     } catch (error) {
       return res.status(500).json({ error: "Server internal error!" });
