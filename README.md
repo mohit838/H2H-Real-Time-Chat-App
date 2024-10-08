@@ -4,7 +4,7 @@ H2H real time chat app
 
 ## How to run with docker
 
-    docker-compose up --build
+    docker-compose up -d --build
 
 ## Clear Cached Images
 

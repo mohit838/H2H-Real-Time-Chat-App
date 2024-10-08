@@ -6,7 +6,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "7000:7000"
+      - "7001:7001"
     container_name: h2h-server
     networks:
       - h2h-app
@@ -46,7 +46,7 @@ networks:
 volumes:
   mongo-data:
 # Note:
-# docker-compose up -d
+# docker-compose up -d --build
 # docker logs container-name
 # Verify Docker ENV
 # docker exec -it h2h-server /bin/bash

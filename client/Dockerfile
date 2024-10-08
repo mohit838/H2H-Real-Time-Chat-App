@@ -5,7 +5,7 @@ FROM node:22-alpine3.19
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package*.json /app
 
 # Install dependencies (only production dependencies)
 RUN npm ci --only=production
