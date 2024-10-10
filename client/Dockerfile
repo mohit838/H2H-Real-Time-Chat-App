@@ -5,10 +5,10 @@ FROM node:22-alpine3.19
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json /app
+COPY package*.json ./
 
 # Install dependencies (only production dependencies)
-RUN npm ci --only=production
+# RUN npm ci --only=production
 
 # Copy the rest of the application code
 COPY . .
@@ -17,16 +17,17 @@ COPY . .
 RUN npm install
 
 # Build the Vite project
-RUN npm run build
+# RUN npm run build
 
 # Install `serve` to serve the build files
-RUN npm install -g serve
+# RUN npm install -g serve
 
 # Remove devDependencies after build to reduce image size
-RUN npm prune --production
+# RUN npm prune --production
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 5173
 
 # Command to serve the application
-CMD ["serve", "-s", "dist"]
+# CMD ["serve", "-s", "dist"]
+CMD ["npm", "run", "dev"]

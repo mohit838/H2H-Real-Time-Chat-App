@@ -23,6 +23,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - ./client:/app
+      - ./client/app/node_modules
     container_name: h2h-client
     networks:
       - h2h-app

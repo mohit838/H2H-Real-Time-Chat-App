@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  client:
+    build: .
+    ports:
+      - "3000:5173"
+    volumes:
+      - .:/app
+      - /app/node-modules
+
