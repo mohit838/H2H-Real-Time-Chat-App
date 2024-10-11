@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(helmet());
 
 // CORS Policies
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = ["http://localhost:5173"];
 app.use(
   cors({
     origin: allowedOrigins,
@@ -52,7 +52,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/h2h-test", testRoutes);
 
 // MongoDB and Server Setup
-const SERVER_PORT = PORT || 7001;
+const SERVER_PORT = PORT || 7000;
 
 // Connect DB first then server started
 connect()

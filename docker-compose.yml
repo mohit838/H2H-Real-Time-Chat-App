@@ -6,14 +6,14 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "7001:7001"
+      - "7000:7000"
     container_name: h2h-server
     networks:
       - h2h-app
     depends_on:
       - mongo
-    # env_file:
-    #   - ./.env
+    env_file:
+      - ./.env
     environment:
       - MONGO_URL=mongodb://mongo:27017/h2h
 
@@ -22,10 +22,10 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    volumes:
-      - ./client:/app
-      - ./client/app/node_modules
+      - "5173:5173"
+    # volumes:
+    #   - /media/grio/tutorials/githubclone/H2H-Real-Time-Chat-App/client:/app
+    #   - /media/grio/tutorials/githubclone/H2H-Real-Time-Chat-App/client/app/node_modules
     container_name: h2h-client
     networks:
       - h2h-app

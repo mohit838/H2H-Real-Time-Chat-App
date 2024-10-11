@@ -6,10 +6,10 @@ export default defineConfig({
   resolve: {},
   server: {
     // port: 3003,
-    port: 3000,
+    // port: 5173,
     proxy: {
       "/api": {
-        target: "http://localhost:7001",
+        target: "http://localhost:7000",
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ''),
       },
